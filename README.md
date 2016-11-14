@@ -13,7 +13,7 @@ Running the antifraud add-on requires a Python installation (compiled with v 2.7
 The add-on can be forked or cloned from my GitHub repository:
 [PayMo Antifraud Add-on](https://github.com/callioca/PayMoAntifraud)
 
-!! Due to the size of the input files (batch_payment.txt and stream_payment.txt) they must be downloaded separately as directed in the  placeholder files !!
+Due to the size of the original input files (batch_payment.txt and stream_payment.txt), smaller placeholder files have been substituted for testing.
 
 The PayMo Antifraud add-on installation should have the following structure:
 <pre><code>
