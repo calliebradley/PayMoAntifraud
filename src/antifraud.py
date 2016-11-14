@@ -109,7 +109,7 @@ class Antifraud:
 
 if __name__=='__main__':
     script, pay_history, pay_new, out1, out2, out3 = argv
-    degree = 1 # Number of degrees separation to test on
+    degree = 4 # Number of degrees separation to test on
 
     antifraud = Antifraud(degree)
 #    antifraud.read_in(pay_history)
