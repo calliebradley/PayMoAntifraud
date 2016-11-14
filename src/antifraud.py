@@ -24,10 +24,13 @@ class Antifraud:
             database.readline()
             for row in database:
                 fields = row.strip().split(",")
-                self.data.append({
-                    int(fields[1]),
-                    int(fields[2])
-                    })
+                if(fields[1] and fields[2]):
+                    self.data.append({
+                        int(fields[1]),
+                        int(fields[2])
+                        })
+                else:
+                    print "Error picking up pair of users"
             database.close()
             return True
         else: return False
@@ -46,7 +49,6 @@ class Antifraud:
         if not os.path.isfile(pay_new):
             print "Bad streaming file"
             sys.exit(-1)
-
         transaction = open(pay_new)
         transaction.readline()
         for row in transaction:
@@ -95,20 +97,22 @@ class Antifraud:
             transaction with a subset of users from history (users)
         """
         nxt_deg = []
-        for each in users:
-            for my_set in history:
-                if each in my_set:
-                    for el in my_set:
-                        if el != each and el not in nxt_deg:
-                            nxt_deg.append(el)
+        for my_set in history:
+            if len(my_set) == 2:    # Ignore any bad sets
+                my_set_pops = set(my_set)
+                user1 = my_set_pops.pop()
+                user2 = my_set_pops.pop()
+                if user1 in users: nxt_deg.append(user2)
+                if user2 in users: nxt_deg.append(user1)
         return nxt_deg
 
 
 if __name__=='__main__':
     script, pay_history, pay_new, out1, out2, out3 = argv
-    degree = 4 # Number of degrees separation to test on
+    degree = 1 # Number of degrees separation to test on
 
     antifraud = Antifraud(degree)
+#    antifraud.read_in(pay_history)
     if not antifraud.read_in(pay_history):
         print "Bad input file"
         sys.exit(-1)
